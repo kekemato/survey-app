@@ -1,9 +1,9 @@
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import createNewSurveyView from './state/createNewSurveyView'
+import createNewQuestionSetView from './state/createNewQuestionSetView'
 
 const reducer = combineReducers({
-    createNewSurveyView
+    createNewQuestionSetView
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

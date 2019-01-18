@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import MenuItem from 'material-ui/MenuItem';
 
 import Navigation from './Navigation/Navigation';
-import CreateNewSurveyView from './views/CreateNewSurveyView'
+import CreateNewQuestionSetView from './views/CreateNewQuestionSetView'
 import './css/App.css';
 
 class App extends React.Component {
@@ -24,6 +24,15 @@ class App extends React.Component {
               >
               </MenuItem>
             </Link>
+            <Link
+              to='/create-new-question-set'
+              className='link'
+            >
+              <MenuItem
+                primaryText='Create new question set'
+              >
+              </MenuItem>
+              </Link>
             <Link
               to='/create-new-survey'
               className='link'
@@ -54,7 +63,7 @@ class App extends React.Component {
           </Navigation>
         </div>
         <div>
-          <Route path="/create-new-survey" component={CreateNewSurveyView} />
+          <Route path="/create-new-question-set" component={CreateNewQuestionSetView} />
           {/* <Route path="/" exact={true} component={SurveyListView} />
           <Route path="/add-new-user" component={AddNewUserView} />
           <Route path="/create-user-group" component={CreateUserGroupView} /> */}

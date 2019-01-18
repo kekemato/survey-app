@@ -11,24 +11,24 @@ import IconButton from 'material-ui/IconButton'
 import { connect } from 'react-redux'
 
 import {
-    surveyNameChange,
+    questionSetNameChange,
     questionTextChange,
     questionTypeChange,
     answerTextChange,
     addNewAnswerClick,
     addNewQuestionClick,
     deleteQuestion,
-    addNewSurveyToFirebaseAsyncAction
-} from '../state/createNewSurveyView'
+    addNewQuestionSetToFirebaseAsyncAction
+} from '../state/createNewQuestionSetView'
 
-const CreateNewSurvey = props => (
+const CreateNewQuestionSet = props => (
     <Paper>
-        <h2>Create new survey</h2>
+        <h2>Create new question set</h2>
         <TextField
-            floatingLabelText="Name your survey"
+            floatingLabelText="Name your question set"
             fullWidth={true}
-            value={props.surveyName}
-            onChange={props.surveyNameChange}
+            value={props.questionSetName}
+            onChange={props.questionSetNameChange}
         />
         <TextField
             floatingLabelText="Type your question"
@@ -44,6 +44,7 @@ const CreateNewSurvey = props => (
             <MenuItem value={'textField'} primaryText="Text Field" />
             <MenuItem value={'checkbox'} primaryText="Checkbox" />
         </SelectField>
+        <br />
         {props.questionType === 'checkbox' ?
             <div>
                 <TextField
@@ -55,12 +56,14 @@ const CreateNewSurvey = props => (
                 <RaisedButton
                     label="Add answer"
                     onClick={props.addNewAnswerClick}
+                    secondary={true}
                 />
             </div>
             : null}
         <RaisedButton
             label="Add new question"
             onClick={props.addNewQuestionClick}
+            primary={true}
         />
         <h3>Your questions:</h3>
         <List>
@@ -76,7 +79,7 @@ const CreateNewSurvey = props => (
                             >
                                 <DeleteIcon />
                             </IconButton>
-}
+                        }
                     >
                         <p>{question.text}</p>
                         {question.type === 'checkbox' ?
@@ -85,7 +88,7 @@ const CreateNewSurvey = props => (
                                     question.answers.map &&
                                     question.answers.map(answer => (
                                         <RadioButton
-                                            key={question + '' + answer}
+                                            key={question.timestamp + answer.slice(0, 3)}
                                             disabled={true}
                                             value={answer}
                                             label={answer}
@@ -102,29 +105,30 @@ const CreateNewSurvey = props => (
                 ))}
         </List>
         <RaisedButton
-            label="Add new survey"
-            onClick={props.addNewSurveyToFirebaseAsyncAction}
+            label="Add new question set"
+            onClick={props.addNewQuestionSetToFirebaseAsyncAction}
+            primary={true}
         />
     </Paper>
 );
 
 const mapStateToProps = state => ({
-    surveyName: state.createNewSurveyView.surveyName,
-    questionText: state.createNewSurveyView.questionText,
-    questionType: state.createNewSurveyView.questionType,
-    answerText: state.createNewSurveyView.answerText,
-    questions: state.createNewSurveyView.questions
+    questionSetName: state.createNewQuestionSetView.questionSetName,
+    questionText: state.createNewQuestionSetView.questionText,
+    questionType: state.createNewQuestionSetView.questionType,
+    answerText: state.createNewQuestionSetView.answerText,
+    questions: state.createNewQuestionSetView.questions
 });
 
 const mapDispatchToProps = dispatch => ({
-    surveyNameChange: (event, text) => dispatch(surveyNameChange(event, text)),
+    questionSetNameChange: (event, text) => dispatch(questionSetNameChange(event, text)),
     questionTextChange: (event, text) => dispatch(questionTextChange(event, text)),
     questionTypeChange: (event, index, text) => dispatch(questionTypeChange(event, index, text)),
     answerTextChange: (event, text) => dispatch(answerTextChange(event, text)),
     addNewAnswerClick: () => dispatch(addNewAnswerClick()),
     addNewQuestionClick: () => dispatch(addNewQuestionClick()),
     deleteQuestion: (timestamp) => dispatch(deleteQuestion(timestamp)),
-    addNewSurveyToFirebaseAsyncAction: () => dispatch(addNewSurveyToFirebaseAsyncAction())
+    addNewQuestionSetToFirebaseAsyncAction: () => dispatch(addNewQuestionSetToFirebaseAsyncAction())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateNewSurvey);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateNewQuestionSet);
