@@ -25,14 +25,14 @@ class App extends React.Component {
               </MenuItem>
             </Link>
             <Link
-              to='/create-new-question-set'
+              to='/question-sets-list'
               className='link'
             >
               <MenuItem
-                primaryText='Create new question set'
+                primaryText='Question sets list'
               >
               </MenuItem>
-              </Link>
+            </Link>
             <Link
               to='/create-new-survey'
               className='link'
@@ -42,6 +42,15 @@ class App extends React.Component {
               >
               </MenuItem>
             </Link>
+            <Link
+              to='/create-new-question-set'
+              className='link'
+            >
+              <MenuItem
+                primaryText='Create new question set'
+              >
+              </MenuItem>
+              </Link>
             <Link
               to='/add-new-user'
               className='link'
@@ -64,6 +73,7 @@ class App extends React.Component {
         </div>
         <div>
           <Route path="/create-new-question-set" component={CreateNewQuestionSetView} />
+          {/* <Route path="/question-sets-list" component={QuestionSetsListView} /> */}
           {/* <Route path="/" exact={true} component={SurveyListView} />
           <Route path="/add-new-user" component={AddNewUserView} />
           <Route path="/create-user-group" component={CreateUserGroupView} /> */}

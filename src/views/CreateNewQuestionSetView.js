@@ -10,6 +10,8 @@ import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import IconButton from 'material-ui/IconButton'
 import { connect } from 'react-redux'
 
+import '../css/createNewQuestionSetView.css'
+
 import {
     questionSetNameChange,
     questionTextChange,
@@ -22,7 +24,7 @@ import {
 } from '../state/createNewQuestionSetView'
 
 const CreateNewQuestionSet = props => (
-    <Paper>
+    <Paper class="question-set-container">
         <h2>Create new question set</h2>
         <TextField
             floatingLabelText="Name your question set"
@@ -40,13 +42,14 @@ const CreateNewQuestionSet = props => (
             value={props.questionType}
             onChange={props.questionTypeChange}
             floatingLabelText="Select question type"
+            fullWidth={true}
         >
             <MenuItem value={'textField'} primaryText="Text Field" />
             <MenuItem value={'checkbox'} primaryText="Checkbox" />
         </SelectField>
         <br />
         {props.questionType === 'checkbox' ?
-            <div>
+            <div class="checkbox-question-form-container">
                 <TextField
                     floatingLabelText="Type your answer to question"
                     fullWidth={true}
@@ -57,6 +60,7 @@ const CreateNewQuestionSet = props => (
                     label="Add answer"
                     onClick={props.addNewAnswerClick}
                     secondary={true}
+                    fullWidth={true}
                 />
             </div>
             : null}
@@ -64,6 +68,7 @@ const CreateNewQuestionSet = props => (
             label="Add new question"
             onClick={props.addNewQuestionClick}
             primary={true}
+            fullWidth={true}
         />
         <h3>Your questions:</h3>
         <List>
@@ -105,9 +110,10 @@ const CreateNewQuestionSet = props => (
                 ))}
         </List>
         <RaisedButton
-            label="Add new question set"
+            label="Create new question set"
             onClick={props.addNewQuestionSetToFirebaseAsyncAction}
             primary={true}
+            fullWidth={true}
         />
     </Paper>
 );
