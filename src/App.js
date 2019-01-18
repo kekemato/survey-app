@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import MenuItem from 'material-ui/MenuItem';
 
 import Navigation from './Navigation/Navigation';
+import CreateNewSurveyView from './views/CreateNewSurveyView'
 import './css/App.css';
 
 class App extends React.Component {
@@ -24,11 +25,11 @@ class App extends React.Component {
               </MenuItem>
             </Link>
             <Link
-              to='/add-new-survey'
+              to='/create-new-survey'
               className='link'
             >
               <MenuItem
-                primaryText='Add new survey'
+                primaryText='Create new survey'
               >
               </MenuItem>
             </Link>
@@ -53,7 +54,10 @@ class App extends React.Component {
           </Navigation>
         </div>
         <div>
-          {/* <Route path="/" exact={true} component={Navigation} /> */}
+          <Route path="/create-new-survey" component={CreateNewSurveyView} />
+          {/* <Route path="/" exact={true} component={SurveyListView} />
+          <Route path="/add-new-user" component={AddNewUserView} />
+          <Route path="/create-user-group" component={CreateUserGroupView} /> */}
         </div>
       </div>
     </Router>
