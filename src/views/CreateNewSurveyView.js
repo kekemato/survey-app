@@ -1,10 +1,13 @@
 import React from 'react'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
-import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
+import { List, ListItem } from 'material-ui/List';
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import Paper from 'material-ui/Paper'
+import DeleteIcon from 'material-ui/svg-icons/action/delete'
+import IconButton from 'material-ui/IconButton'
 import { connect } from 'react-redux'
 
 import {
@@ -13,14 +16,16 @@ import {
     questionTypeChange,
     answerTextChange,
     addNewAnswerClick,
-    addNewQuestionClick
+    addNewQuestionClick,
+    deleteQuestion,
+    addNewSurveyToFirebaseAsyncAction
 } from '../state/createNewSurveyView'
 
 const CreateNewSurvey = props => (
     <Paper>
         <h2>Create new survey</h2>
         <TextField
-            floatingLabelText="Name your test"
+            floatingLabelText="Name your survey"
             fullWidth={true}
             value={props.surveyName}
             onChange={props.surveyNameChange}
@@ -57,35 +62,48 @@ const CreateNewSurvey = props => (
             label="Add new question"
             onClick={props.addNewQuestionClick}
         />
-        <div>
         <h3>Your questions:</h3>
-        {props.questions && props.questions.map && props.questions.map(question => (
-            <div
-            key={question.text}
-            >
-                <p>{question.text}</p>
-                {question.type === 'checkbox' ?
-                    <RadioButtonGroup>
-                        {question.answers.map(answer => (
-                        <RadioButton
-                        key={question + '' + answer}
-                        disabled={true}
-                        value={answer}
-                        label={answer}
-                        />
-                        ))}
-                    </RadioButtonGroup>
-                    : <TextField
-                    floatingLabelText="Type your answer"
-                    disabled={true}
-                    fullWidth={true}
-                    />
-                }
-            </div>
-        ))}
-        </div>
+        <List>
+            {props.questions &&
+                props.questions.map &&
+                props.questions.map((question) => (
+                    <ListItem
+                        key={question.timestamp}
+                        rightIconButton={
+                            <IconButton
+                                onClick={() => props.deleteQuestion(question.timestamp)
+                                }
+                            >
+                                <DeleteIcon />
+                            </IconButton>
+}
+                    >
+                        <p>{question.text}</p>
+                        {question.type === 'checkbox' ?
+                            <RadioButtonGroup>
+                                {question.answers &&
+                                    question.answers.map &&
+                                    question.answers.map(answer => (
+                                        <RadioButton
+                                            key={question + '' + answer}
+                                            disabled={true}
+                                            value={answer}
+                                            label={answer}
+                                        />
+                                    ))}
+                            </RadioButtonGroup>
+                            : <TextField
+                                floatingLabelText="Type your answer"
+                                disabled={true}
+                                fullWidth={true}
+                            />
+                        }
+                    </ListItem>
+                ))}
+        </List>
         <RaisedButton
-        label="Add new survey"
+            label="Add new survey"
+            onClick={props.addNewSurveyToFirebaseAsyncAction}
         />
     </Paper>
 );
@@ -104,7 +122,9 @@ const mapDispatchToProps = dispatch => ({
     questionTypeChange: (event, index, text) => dispatch(questionTypeChange(event, index, text)),
     answerTextChange: (event, text) => dispatch(answerTextChange(event, text)),
     addNewAnswerClick: () => dispatch(addNewAnswerClick()),
-    addNewQuestionClick: () => dispatch(addNewQuestionClick())
+    addNewQuestionClick: () => dispatch(addNewQuestionClick()),
+    deleteQuestion: (timestamp) => dispatch(deleteQuestion(timestamp)),
+    addNewSurveyToFirebaseAsyncAction: () => dispatch(addNewSurveyToFirebaseAsyncAction())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateNewSurvey);
