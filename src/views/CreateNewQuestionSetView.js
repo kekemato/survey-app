@@ -1,16 +1,16 @@
-import React from 'react'
-import TextField from 'material-ui/TextField'
-import RaisedButton from 'material-ui/RaisedButton'
+import React from 'react';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import { List, ListItem } from 'material-ui/List';
-import SelectField from 'material-ui/SelectField'
-import MenuItem from 'material-ui/MenuItem'
-import Paper from 'material-ui/Paper'
-import DeleteIcon from 'material-ui/svg-icons/action/delete'
-import IconButton from 'material-ui/IconButton'
-import { connect } from 'react-redux'
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import Paper from 'material-ui/Paper';
+import DeleteIcon from 'material-ui/svg-icons/action/delete';
+import IconButton from 'material-ui/IconButton';
+import { connect } from 'react-redux';
 
-import '../css/createNewQuestionSetView.css'
+import '../css/createNewQuestionSetView.css';
 
 import {
     questionSetNameChange,
@@ -21,7 +21,7 @@ import {
     addNewQuestionClick,
     deleteQuestion,
     addNewQuestionSetToFirebaseAsyncAction
-} from '../state/createNewQuestionSetView'
+} from '../state/createNewQuestionSetView';
 
 const CreateNewQuestionSet = props => (
     <Paper class="question-set-container">

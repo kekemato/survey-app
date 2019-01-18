@@ -1,13 +1,13 @@
-import { database } from '../firebaseConfig'
+import { database } from '../firebaseConfig';
 
-const QUESTION_SET_NAME_CHANGE = "createNewQuestionSetView/QUESTION_SET_NAME_CHANGE"
-const QUESTION_TEXT_CHANGE = 'createNewQuestionSetView/QUESTION_TEXT_CHANGE'
-const QUESTION_TYPE_CHANGE = 'createNewQuestionSetView/QUESTION_TYPE_CHANGE'
-const ANSWER_TEXT_CHANGE = 'createNewQuestionSetView/ANSWER_TEXT_CHANGE'
-const ADD_NEW_ANSWER_CLICK = 'createNewQuestionSetView/ADD_NEW_ANSWER_CLICK'
-const ADD_NEW_QUESTION_CLICK = 'createNewQuestionSetView/ADD_NEW_QUESTION_CLICK'
-const DELETE_QUESTION = 'createNewQuestionSetView/DELETE_QUESTION'
-const RESTORE_INITIAL_STATE = 'createNewQuestionSetView/RESTORE_INITIAL_STATE'
+const QUESTION_SET_NAME_CHANGE = "createNewQuestionSetView/QUESTION_SET_NAME_CHANGE";
+const QUESTION_TEXT_CHANGE = 'createNewQuestionSetView/QUESTION_TEXT_CHANGE';
+const QUESTION_TYPE_CHANGE = 'createNewQuestionSetView/QUESTION_TYPE_CHANGE';
+const ANSWER_TEXT_CHANGE = 'createNewQuestionSetView/ANSWER_TEXT_CHANGE';
+const ADD_NEW_ANSWER_CLICK = 'createNewQuestionSetView/ADD_NEW_ANSWER_CLICK';
+const ADD_NEW_QUESTION_CLICK = 'createNewQuestionSetView/ADD_NEW_QUESTION_CLICK';
+const DELETE_QUESTION = 'createNewQuestionSetView/DELETE_QUESTION';
+const RESTORE_INITIAL_STATE = 'createNewQuestionSetView/RESTORE_INITIAL_STATE';
 
 const INITIAL_STATE = {
     questionSetName: '',
@@ -19,15 +19,15 @@ const INITIAL_STATE = {
 };
 
 export const addNewQuestionSetToFirebaseAsyncAction = () => (dispatch, getState) => {
-    const questionSetName = getState().createNewQuestionSetView.questionSetName
-    const questions = getState().createNewQuestionSetView.questions
+    const questionSetName = getState().createNewQuestionSetView.questionSetName;
+    const questions = getState().createNewQuestionSetView.questions;
     database.ref('/questionSets').push({
         questionSetName,
         questions,
-    })
+    });
 
     dispatch(restoreInitialStateAction())
-}
+};
 
 export const questionSetNameChange = (event, text) => ({
     type: QUESTION_SET_NAME_CHANGE,
