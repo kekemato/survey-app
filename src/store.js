@@ -4,7 +4,7 @@ import createNewQuestionSetView from './state/createNewQuestionSetView';
 import questionSetsListView from './state/questionSetsListView';
 import addNewUserView from './state/addNewUserView';
 import createUserGroupView from './state/createUserGroupView';
-import userGroupsListView from './state/userGroupListView';
+import userGroupsListView from './state/userGroupsListView';
 import singleUserGroupView from './state/singleUserGroupView'
 
 const reducer = combineReducers({

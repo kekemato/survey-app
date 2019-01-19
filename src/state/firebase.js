@@ -1,6 +1,6 @@
 import { getQuestionSetsFromDbAsyncAction } from './questionSetsListView';
 import { getUsersListFromFirebaseAsyncAction } from './addNewUserView';
-import { getUserGroupsListFromFirebaseAsyncAction } from './userGroupListView';
+import { getUserGroupsListFromFirebaseAsyncAction } from './userGroupsListView';
 
 export const startListeningToFirebase = () => (dispatch, getState) => {
     dispatch(getQuestionSetsFromDbAsyncAction())
