@@ -32,7 +32,7 @@ const SingleQuestionSetView = props => {
                     singleQuestionSet.questions &&
                     singleQuestionSet.questions.map &&
                     singleQuestionSet.questions.map((question, index) => (
-                        <div>
+                        <div key={question.timestamp}>
                             <ListItem
                                 rightIconButton={
                                     <IconButton
@@ -45,10 +45,12 @@ const SingleQuestionSetView = props => {
                             >
                                 <h3>{question.text}</h3>
                                 {question.type === 'checkbox' ?
-                                    question.answers && question.answers.map(answer => (
-                                        <RadioButtonGroup>
+                                    question.answers && question.answers.map((answer, index) => (
+                                        <RadioButtonGroup
+                                        name={`question-answer-${index}`}
+                                        key={`answer-${index}`}
+                                        >
                                             <RadioButton
-                                                key={question.timestamp + answer.slice(0, 3)}
                                                 disabled={true}
                                                 value={answer}
                                                 label={answer}

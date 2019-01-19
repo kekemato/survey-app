@@ -12,7 +12,9 @@ const QuestionSetsListView = props => (
         {props.questionSets &&
             props.questionSets.map &&
             props.questionSets.map(questionSet => (
-                <List>
+                <List
+                key={questionSet.key}
+                >
                     <ListItem
                     onClick={() => props.history.push(`/single-question-set/${questionSet.key}`)}
                         primaryText={questionSet.questionSetName}
