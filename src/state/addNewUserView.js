@@ -2,11 +2,12 @@ import { database } from '../firebaseConfig'
 
 const USER_NAME_CHANGE = 'addNewUserView/USER_NAME_CHANGE'
 const RESTORE_INITIAL_STATE = 'addNewUserView/RESTORE_INITIAL_STATE'
+const RESTORE_INITIAL_USER_NAME_STATE = 'addNewUserView/RESTORE_INITIAL_USER_NAME_STATE'
 const SAVE_USER_LIST = 'addNewUserView/SAVE_USER_LIST'
 
 const INITIAL_STATE = {
     userName: '',
-    users: ''
+    users: []
 }
 
 export const getUsersListFromFirebaseAsyncAction = () => (dispatch, getState) => {
@@ -31,7 +32,17 @@ export const addNewUserAsyncAction = () => (dispatch, getState) => {
     const user = getState().addNewUserView.userName
     database.ref('users').push(user)
 
+    dispatch(restoreInitialUserNameState())
+}
+
+export const removeUserFromUserListAsyncAction = (key) => (dispatch, getState) => {
+    const users = getState().addNewUserView.users
+    if (users.length === 1) {
+    database.ref(`users/${key}`).remove()
     dispatch(restoreInitialState())
+    } else {
+        database.ref(`users/${key}`).remove()
+    }
 }
 
 export const userNameChange = (event, text) => ({
@@ -48,6 +59,10 @@ const restoreInitialState = () => ({
     type: RESTORE_INITIAL_STATE
 })
 
+const restoreInitialUserNameState = () => ({
+    type: RESTORE_INITIAL_USER_NAME_STATE
+})
+
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case USER_NAME_CHANGE:
@@ -60,12 +75,16 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 users: action.users
             }
-        case RESTORE_INITIAL_STATE:
+        case RESTORE_INITIAL_USER_NAME_STATE:
             return {
                 ...state,
                 userName: ''
             }
-
+        case RESTORE_INITIAL_STATE:
+            return {
+                users: [],
+                userName: ''
+            }
         default:
             return state
     }
