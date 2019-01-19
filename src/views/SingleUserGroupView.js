@@ -8,7 +8,7 @@ import Checkbox from 'material-ui/Checkbox';
 import { RaisedButton } from 'material-ui';
 import {
     addUserToUserGroup,
-    removeUserFromGroup,
+    removeUserFromLocalUserGroup,
     addNewUserToTheGroupAsyncAction,
     removeUserFromUserGroupAsyncAction
 } from '../state/singleUserGroupView'
@@ -17,9 +17,10 @@ const SingleUserGroupView = props => {
     const singleUserGroup = props.userGroups && props.userGroups.find(element => element.key === props.match.params.id)
     return (
         <Paper>
-            <h2>{singleUserGroup.userGroupName}</h2>
+            <h2>{singleUserGroup && singleUserGroup.userGroupName}</h2>
             <List>
-                {singleUserGroup.users &&
+                {singleUserGroup &&
+                singleUserGroup.users &&
                     singleUserGroup.users.map &&
                     singleUserGroup.users.map((user, index) => (
                         <ListItem
@@ -49,7 +50,7 @@ const SingleUserGroupView = props => {
                                         if (isInputChecked) {
                                             props.addUserToUserGroup(user)
                                         } else {
-                                            props.removeUserFromGroup(user)
+                                            props.removeUserFromLocalUserGroup(user)
                                         }
                                     }
                                     }
@@ -74,7 +75,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     addUserToUserGroup: (user) => dispatch(addUserToUserGroup(user)),
-    removeUserFromGroup: (user) => dispatch(removeUserFromGroup(user)),
+    removeUserFromLocalUserGroup: (user) => dispatch(removeUserFromLocalUserGroup(user)),
     addNewUserToTheGroupAsyncAction: (key, userGroupName) => dispatch(addNewUserToTheGroupAsyncAction(key, userGroupName)),
     removeUserFromUserGroupAsyncAction: (key, index) => dispatch(removeUserFromUserGroupAsyncAction(key, index)),
 })

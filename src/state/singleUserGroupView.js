@@ -1,7 +1,7 @@
 import { database } from '../firebaseConfig';
 
 const ADD_USER_TO_USER_GROUP = 'singleUserGroupView/ADD_USER_TO_USER_GROUP';
-const REMOVE_USER_FROM_GROUP = 'singleUserGroupView/REMOVE_USER_FROM_GROUP';
+const REMOVE_USER_FROM_LOCAL_USER_GROUP = 'singleUserGroupView/REMOVE_USER_FROM_LOCAL_USER_GROUP';
 const RESTORE_INITIAL_STATE = 'createUserGroupView/RESTORE_INITIAL_STATE';
 
 const INITIAL_STATE = {
@@ -30,8 +30,8 @@ export const addUserToUserGroup = (user) => ({
     user
 });
 
-export const removeUserFromGroup = (user) => ({
-    type: REMOVE_USER_FROM_GROUP,
+export const removeUserFromLocalUserGroup = (user) => ({
+    type: REMOVE_USER_FROM_LOCAL_USER_GROUP,
     user
 });
 
@@ -46,7 +46,7 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 usersInGroup: [...state.usersInGroup, action.user]
             }
-        case REMOVE_USER_FROM_GROUP:
+        case REMOVE_USER_FROM_LOCAL_USER_GROUP:
             const newUserGroup = state.usersInGroup.filter(user => user.key !== action.user.key)
             return {
                 ...state,
