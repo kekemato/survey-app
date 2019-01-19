@@ -5,7 +5,7 @@ import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import IconButton from 'material-ui/IconButton';
 import { connect } from 'react-redux';
 
-import {deleteQuestionSetAsyncAction} from '../../state/questionSetsListView'
+import {deleteQuestionSetAsyncAction} from '../../state/questionSetsListView';
 
 const QuestionSetsListView = props => (
     <Paper>
@@ -41,7 +41,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     deleteQuestionSetAsyncAction: (key) => dispatch(deleteQuestionSetAsyncAction(key))
-})
+});
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuestionSetsListView);

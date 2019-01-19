@@ -7,6 +7,7 @@ import Navigation from './Navigation/Navigation';
 import CreateNewQuestionSetView from './views/CreateNewQuestionSetView'
 import QuestionSetsListView from './views/QuestionSetsListView/QuestionSetsListView'
 import SingleQuestionSetView from './views/QuestionSetsListView/SingleQuestionSetView'
+import AddNewUserView from './views/AddNewUserView'
 import { startListeningToFirebase } from './state/firebase'
 import './css/App.css';
 
@@ -83,9 +84,9 @@ class App extends React.Component {
             <Route path="/create-new-question-set" component={CreateNewQuestionSetView} />
             <Route path="/question-sets-list" component={QuestionSetsListView} />
             <Route path="/single-question-set/:id" component={SingleQuestionSetView} />
-            {/* <Route path="/" exact={true} component={SurveyListView} />
+            {/* <Route path="/" exact={true} component={SurveyListView} /> */}
           <Route path="/add-new-user" component={AddNewUserView} />
-          <Route path="/create-user-group" component={CreateUserGroupView} /> */}
+          {/* <Route path="/create-user-group" component={CreateUserGroupView} /> */}
           </div>
         </div>
       </Router>
