@@ -68,11 +68,7 @@ const SingleQuestionSetView = props => {
                     ))
                 }
             </List>
-            <RaisedButton
-                label="Add new question"
-                primary={true}
-                className="add-new-question-button"
-            />
+           <h3>Add new question to this question set:</h3>
             <div className="new-question-form--hidden">
                 <TextField
                     floatingLabelText="Type your question"

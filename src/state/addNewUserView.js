@@ -9,19 +9,20 @@ const INITIAL_STATE = {
     users: ''
 }
 
-export  const getUsersListFromFirebaseAsyncAction = () => (dispatch, getState) => {
+export const getUsersListFromFirebaseAsyncAction = () => (dispatch, getState) => {
     database.ref('/users').on(
         'value',
         snapshot => {
-            console.log(snapshot.val())
-            const users = Object.entries(
-                snapshot.val()
-            ).map(entry => ({
-                userName: entry[1],
-                key: entry[0]
-            }))
+            if (snapshot.val()) {
+                const users = Object.entries(
+                    snapshot.val()
+                ).map(entry => ({
+                    userName: entry[1],
+                    key: entry[0]
+                }))
 
-            dispatch(saveUserList(users))
+                dispatch(saveUserList(users))
+            }
         }
     )
 }

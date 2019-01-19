@@ -10,14 +10,16 @@ export const getQuestionSetsFromDbAsyncAction = () => (dispatch, getState) => {
     database.ref('/questionSets').on(
         'value',
         snapshot => {
-            const sets = Object.entries(
-                snapshot.val()
-            ).map(entry => ({
-                ...entry[1],
-                key: entry[0]
-            }))
+            if (snapshot.val()) {
+                const sets = Object.entries(
+                    snapshot.val()
+                ).map(entry => ({
+                    ...entry[1],
+                    key: entry[0]
+                }))
 
-            dispatch(saveQuestionSetsAction(sets))
+                dispatch(saveQuestionSetsAction(sets))
+            }
         }
     )
 }
@@ -31,14 +33,14 @@ const saveQuestionSetsAction = sets => ({
     sets
 })
 
-export default (state=INITIAL_STATE, action) => {
+export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case SAVE_QUESTION_SETS_ACTION:
-        return {
-            ...state,
-            questionSets: action.sets
-        }
+            return {
+                ...state,
+                questionSets: action.sets
+            }
         default:
-        return state
+            return state
     }
 }

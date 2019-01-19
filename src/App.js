@@ -4,11 +4,14 @@ import MenuItem from 'material-ui/MenuItem';
 import { connect } from 'react-redux'
 
 import Navigation from './Navigation/Navigation';
-import CreateNewQuestionSetView from './views/CreateNewQuestionSetView'
-import QuestionSetsListView from './views/QuestionSetsListView/QuestionSetsListView'
-import SingleQuestionSetView from './views/QuestionSetsListView/SingleQuestionSetView'
-import AddNewUserView from './views/AddNewUserView'
-import { startListeningToFirebase } from './state/firebase'
+import CreateNewQuestionSetView from './views/CreateNewQuestionSetView';
+import QuestionSetsListView from './views/QuestionSetsListView/QuestionSetsListView';
+import SingleQuestionSetView from './views/QuestionSetsListView/SingleQuestionSetView';
+import AddNewUserView from './views/AddNewUserView';
+import CreateUserGroupView from './views/CreateUserGroupView';
+import UserGroupsListView from './views/UserGroupsListView';
+import SingleUserGroupView from './views/SingleUserGroupView';
+import { startListeningToFirebase } from './state/firebase';
 import './css/App.css';
 
 class App extends React.Component {
@@ -39,6 +42,15 @@ class App extends React.Component {
               >
                 <MenuItem
                   primaryText='Question sets list'
+                >
+                </MenuItem>
+              </Link>
+              <Link
+                to='/user-groups-list'
+                className='link'
+              >
+                <MenuItem
+                  primaryText='User Groups list'
                 >
                 </MenuItem>
               </Link>
@@ -83,10 +95,12 @@ class App extends React.Component {
           <div>
             <Route path="/create-new-question-set" component={CreateNewQuestionSetView} />
             <Route path="/question-sets-list" component={QuestionSetsListView} />
+            <Route path="/user-groups-list" component={UserGroupsListView} />
             <Route path="/single-question-set/:id" component={SingleQuestionSetView} />
+            <Route path="/single-user-group/:id" component={SingleUserGroupView} />
             {/* <Route path="/" exact={true} component={SurveyListView} /> */}
           <Route path="/add-new-user" component={AddNewUserView} />
-          {/* <Route path="/create-user-group" component={CreateUserGroupView} /> */}
+          <Route path="/create-user-group" component={CreateUserGroupView} />
           </div>
         </div>
       </Router>
