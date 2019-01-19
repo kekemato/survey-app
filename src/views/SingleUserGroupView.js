@@ -9,7 +9,8 @@ import { RaisedButton } from 'material-ui';
 import {
     addUserToUserGroup,
     removeUserFromGroup,
-    addNewUserToTheGroupAsyncAction
+    addNewUserToTheGroupAsyncAction,
+    removeUserFromUserGroupAsyncAction
 } from '../state/singleUserGroupView'
 
 const SingleUserGroupView = props => {
@@ -20,13 +21,13 @@ const SingleUserGroupView = props => {
             <List>
                 {singleUserGroup.users &&
                     singleUserGroup.users.map &&
-                    singleUserGroup.users.map(user => (
+                    singleUserGroup.users.map((user, index) => (
                         <ListItem
                             key={user.key}
                             primaryText={user.userName}
                             rightIconButton={
                                 <IconButton
-                                    onClick={() => { }}
+                                    onClick={() => props.removeUserFromUserGroupAsyncAction(singleUserGroup.key, index)}
                                 >
                                     <DeleteIcon />
                                 </IconButton>
@@ -59,8 +60,8 @@ const SingleUserGroupView = props => {
                 }
             </List>
             <RaisedButton
-            label="Add new user"
-            onClick={() => props.addNewUserToTheGroupAsyncAction(singleUserGroup.key)}
+                label="Add new user"
+                onClick={() => props.addNewUserToTheGroupAsyncAction(singleUserGroup.key, singleUserGroup.userGroupName)}
             />
         </Paper>
     )
@@ -74,7 +75,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     addUserToUserGroup: (user) => dispatch(addUserToUserGroup(user)),
     removeUserFromGroup: (user) => dispatch(removeUserFromGroup(user)),
-    addNewUserToTheGroupAsyncAction: (key) => dispatch(addNewUserToTheGroupAsyncAction(key)),
+    addNewUserToTheGroupAsyncAction: (key, userGroupName) => dispatch(addNewUserToTheGroupAsyncAction(key, userGroupName)),
+    removeUserFromUserGroupAsyncAction: (key, index) => dispatch(removeUserFromUserGroupAsyncAction(key, index)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleUserGroupView)

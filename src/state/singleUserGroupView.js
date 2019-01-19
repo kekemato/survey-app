@@ -1,40 +1,43 @@
-import { database } from '../firebaseConfig'
+import { database } from '../firebaseConfig';
 
-const ADD_USER_TO_USER_GROUP = 'singleUserGroupView/ADD_USER_TO_USER_GROUP'
-const REMOVE_USER_FROM_GROUP = 'singleUserGroupView/REMOVE_USER_FROM_GROUP'
-const RESTORE_INITIAL_STATE = 'createUserGroupView/RESTORE_INITIAL_STATE'
+const ADD_USER_TO_USER_GROUP = 'singleUserGroupView/ADD_USER_TO_USER_GROUP';
+const REMOVE_USER_FROM_GROUP = 'singleUserGroupView/REMOVE_USER_FROM_GROUP';
+const RESTORE_INITIAL_STATE = 'createUserGroupView/RESTORE_INITIAL_STATE';
 
 const INITIAL_STATE = {
     usersInGroup: []
-}
+};
 
-export const addNewUserToTheGroupAsyncAction = (key) => (dispatch, getState) => {
-    const userGroups = getState().userGroupsListView.userGroups
-    const singleUserGroup = userGroups && userGroups.find(element => element.key === key)
-    const newUsers = getState().singleUserGroupView.usersInGroup
-    const users = (singleUserGroup.users ? singleUserGroup.users.concat(newUsers) : newUsers)
-    console.log(newUsers)
-    console.log(users)
+export const addNewUserToTheGroupAsyncAction = (key, userGroupName) => (dispatch, getState) => {
+    const userGroups = getState().userGroupsListView.userGroups;
+    const singleUserGroup = userGroups && userGroups.find(element => element.key === key);
+    const newUsers = getState().singleUserGroupView.usersInGroup;
+    const users = (singleUserGroup.users ? singleUserGroup.users.concat(newUsers) : newUsers);
     database.ref(`userGroups/${key}`).set({
+        userGroupName,
         users
-    })
+    });
 
-    dispatch(restoreInitialState())
-}
+    dispatch(restoreInitialState());
+};
+
+export const removeUserFromUserGroupAsyncAction = (key, index) => (dispatch, getState) => {
+    database.ref(`/userGroups/${key}/users/${index}`).remove();
+};
 
 export const addUserToUserGroup = (user) => ({
     type: ADD_USER_TO_USER_GROUP,
     user
-})
+});
 
 export const removeUserFromGroup = (user) => ({
     type: REMOVE_USER_FROM_GROUP,
     user
-})
+});
 
 const restoreInitialState = () => ({
     type: RESTORE_INITIAL_STATE
-})
+});
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
@@ -57,4 +60,4 @@ export default (state = INITIAL_STATE, action) => {
         default:
             return state
     }
-}
+};
