@@ -18,7 +18,7 @@ const QuestionSetsListView = props => (
                         primaryText={questionSet.questionSetName}
                         rightIconButton={
                             <IconButton
-                                onClick={() => {props.deleteQuestionSetAsyncAction(questionSet.key)}}
+                                onClick={() => props.deleteQuestionSetAsyncAction(questionSet.key)}
                             >
                                 <DeleteIcon />
                             </IconButton>

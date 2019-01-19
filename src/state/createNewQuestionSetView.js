@@ -62,7 +62,7 @@ export const deleteQuestion = timestamp => ({
     timestamp
 })
 
-const restoreInitialStateAction = () => ({
+export const restoreInitialStateAction = () => ({
     type: RESTORE_INITIAL_STATE,
 });
 
