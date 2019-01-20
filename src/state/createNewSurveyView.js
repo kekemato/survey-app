@@ -18,29 +18,33 @@ export const createNewSurveyAsyncAction = () => (dispatch, getState) => {
     const questionSets = getState().createNewSurveyView.questionSetsInSurvey;
     const userGroups = getState().createNewSurveyView.userGroupsInSurvey;
 
-    const newSurveyRef =database.ref('surveys').push({
-        surveyName
-    });
-
-    const surveyId = newSurveyRef.key;
-
-    questionSets.forEach(questionSet => {
-        database.ref(`surveys/${surveyId}/questionSets`).push({
-            key: questionSet.key,
-            questionSetName: questionSet.questionSetName,
-            questions: questionSet.questions
+    if (surveyName !== '') {
+        const newSurveyRef = database.ref('surveys').push({
+            surveyName
         });
-    });
 
-    userGroups.forEach(userGroup => {
-        database.ref(`surveys/${surveyId}/userGroups`).push({
-            key: userGroup.key,
-            userGroupName: userGroup.userGroupName,
-            users: userGroup.users
+        const surveyId = newSurveyRef.key;
+
+        questionSets.forEach(questionSet => {
+            database.ref(`surveys/${surveyId}/questionSets`).push({
+                key: questionSet.key,
+                questionSetName: questionSet.questionSetName,
+                questions: questionSet.questions
+            });
         });
-    });
 
-    dispatch(toggleNotificationAction('Survey created'));
+        userGroups.forEach(userGroup => {
+            database.ref(`surveys/${surveyId}/userGroups`).push({
+                key: userGroup.key,
+                userGroupName: userGroup.userGroupName,
+                users: userGroup.users
+            });
+        });
+
+        dispatch(toggleNotificationAction('Survey created'));
+    } else {
+        dispatch(toggleNotificationAction('Please name the survey'));
+    }
 };
 
 export const surveyNameChange = (event, text) => ({

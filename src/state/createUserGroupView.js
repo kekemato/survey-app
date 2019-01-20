@@ -13,20 +13,25 @@ const INITIAL_STATE = {
 export const addNewUserGroupAsyncAction = () => (dispatch, getState) => {
     const userGroupName = getState().createUserGroupView.userGroupName
     const users = getState().createUserGroupView.usersInGroup
-    const newPostRef = database.ref('userGroups').push({
-        userGroupName
-    });
 
-    const postId = newPostRef.key;
-
-    users.forEach( user => {
-        database.ref(`userGroups/${postId}/users`).push({
-            uuid: user.key,
-            userName: user.userName
+    if (userGroupName !== '') {
+        const newPostRef = database.ref('userGroups').push({
+            userGroupName
         });
-    })
 
-    dispatch(toggleNotificationAction('User group created'));
+        const postId = newPostRef.key;
+
+        users.forEach(user => {
+            database.ref(`userGroups/${postId}/users`).push({
+                uuid: user.key,
+                userName: user.userName
+            });
+        })
+
+        dispatch(toggleNotificationAction('User group created'));
+    } else {
+        dispatch(toggleNotificationAction('Please name the user group'));
+    }
 }
 
 export const userGroupNameChange = (event, text) => ({

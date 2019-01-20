@@ -6,7 +6,7 @@ const QUESTION_TEXT_CHANGE = 'createNewQuestionSetView/QUESTION_TEXT_CHANGE';
 const QUESTION_TYPE_CHANGE = 'createNewQuestionSetView/QUESTION_TYPE_CHANGE';
 const ANSWER_TEXT_CHANGE = 'createNewQuestionSetView/ANSWER_TEXT_CHANGE';
 const ADD_NEW_ANSWER = 'createNewQuestionSetView/ADD_NEW_ANSWER';
-const ADD_NEW_QUESTION_CLICK = 'createNewQuestionSetView/ADD_NEW_QUESTION_CLICK';
+const ADD_NEW_QUESTION = 'createNewQuestionSetView/ADD_NEW_QUESTION';
 const DELETE_QUESTION = 'createNewQuestionSetView/DELETE_QUESTION';
 const RESTORE_INITIAL_STATE = 'createNewQuestionSetView/RESTORE_INITIAL_STATE';
 
@@ -23,6 +23,7 @@ export const addNewQuestionSetToFirebaseAsyncAction = () => (dispatch, getState)
     const questionSetName = getState().createNewQuestionSetView.questionSetName;
     const questions = getState().createNewQuestionSetView.questions;
 
+    if (questionSetName !== '') {
     const newPostRef = database.ref('/questionSets').push({
         questionSetName
     });
@@ -41,11 +42,9 @@ export const addNewQuestionSetToFirebaseAsyncAction = () => (dispatch, getState)
 
     dispatch(toggleNotificationAction('Question set created'));
     dispatch(restoreInitialState())
-};
-
-export const addNewAnswerActions = () => (dispatch, getState) => {
-    dispatch(addNewAnswer());
-    dispatch(toggleNotificationAction('Answer added'));
+} else {
+    dispatch(toggleNotificationAction('Please name the question set'));
+}
 };
 
 export const questionSetNameChange = (event, text) => ({
@@ -68,8 +67,12 @@ export const answerTextChange = (event, text) => ({
     text
 });
 
-export const addNewQuestionClick = () => ({
-    type: ADD_NEW_QUESTION_CLICK
+export const addNewAnswer = () => ({
+    type: ADD_NEW_ANSWER
+});
+
+export const addNewQuestion = () => ({
+    type: ADD_NEW_QUESTION
 });
 
 export const deleteQuestion = timestamp => ({
@@ -79,10 +82,6 @@ export const deleteQuestion = timestamp => ({
 
 export const restoreInitialState = () => ({
     type: RESTORE_INITIAL_STATE,
-});
-
-const addNewAnswer = () => ({
-    type: ADD_NEW_ANSWER
 });
 
 export default (state = INITIAL_STATE, action) => {
@@ -113,7 +112,7 @@ export default (state = INITIAL_STATE, action) => {
                 answers: [...state.answers, state.answerText],
                 answerText: ''
             }
-        case ADD_NEW_QUESTION_CLICK:
+        case ADD_NEW_QUESTION:
             const timestamp = Date.now()
             return {
                 ...state,

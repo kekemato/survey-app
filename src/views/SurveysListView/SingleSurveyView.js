@@ -6,6 +6,7 @@ import { List, ListItem } from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
 import { RaisedButton } from 'material-ui';
 import { connect } from 'react-redux';
+import { toggleNotificationAction } from '../../state/notification'
 import {
     removeQuestionSetFromSurveyAsyncAction,
     removeUserGroupFromSurveyAsyncAction,
@@ -88,7 +89,13 @@ const SingleSurveyView = props => {
             <RaisedButton
                 primary={true}
                 label="Add new question set"
-                onClick={() => props.addNewQuestionSetToTheSurveyAsyncAction(singleSurvey.key)}
+                onClick={() => {
+                    if (props.questionSetsInSurvey.length !== 0) {
+                        props.addNewQuestionSetToTheSurveyAsyncAction(singleSurvey.key)
+                    } else {
+                        props.toggleNotificationAction('Please check at least one question set')
+                    }
+                }}
             />
             <h3>Add new user group to the survey:</h3>
             <List>
@@ -116,7 +123,13 @@ const SingleSurveyView = props => {
             <RaisedButton
                 primary={true}
                 label="Add new user group"
-                onClick={() => props.addNewUserGroupToTheSurveyAsyncAction(singleSurvey.key)}
+                onClick={() => {
+                    if (props.userGroupsInSurvey.length !== 0) {
+                        props.addNewUserGroupToTheSurveyAsyncAction(singleSurvey.key)
+                    } else {
+                        props.toggleNotificationAction('Please check at least one user group')
+                    }
+                }}
             />
         </Paper>
     )
@@ -126,6 +139,8 @@ const mapStateToProps = state => ({
     surveys: state.surveysListView.surveys,
     questionSets: state.questionSetsListView.questionSets,
     userGroups: state.userGroupsListView.userGroups,
+    questionSetsInSurvey: state.singleSurveyView.questionSetsInSurvey,
+    userGroupsInSurvey: state.singleSurveyView.userGroupsInSurvey,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -136,7 +151,8 @@ const mapDispatchToProps = dispatch => ({
     addNewQuestionSetToTheSurveyAsyncAction: (key) => dispatch(addNewQuestionSetToTheSurveyAsyncAction(key)),
     addUserGroupToSurvey: (userGroup) => dispatch(addUserGroupToSurvey(userGroup)),
     removeUserGroupFromLocalSurvey: (userGroup) => dispatch(removeUserGroupFromLocalSurvey(userGroup)),
-    addNewUserGroupToTheSurveyAsyncAction: (key) => dispatch(addNewUserGroupToTheSurveyAsyncAction(key))
+    addNewUserGroupToTheSurveyAsyncAction: (key) => dispatch(addNewUserGroupToTheSurveyAsyncAction(key)),
+    toggleNotificationAction: (message) => dispatch(toggleNotificationAction(message))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleSurveyView)

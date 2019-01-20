@@ -12,13 +12,14 @@ import { connect } from 'react-redux';
 
 import '../css/createNewQuestionSetView.css';
 
+import { toggleNotificationAction } from '../state/notification';
 import {
     questionSetNameChange,
     questionTextChange,
     questionTypeChange,
     answerTextChange,
-    addNewAnswerActions,
-    addNewQuestionClick,
+    addNewAnswer,
+    addNewQuestion,
     deleteQuestion,
     addNewQuestionSetToFirebaseAsyncAction
 } from '../state/createNewQuestionSetView';
@@ -58,7 +59,10 @@ const CreateNewQuestionSet = props => (
                 />
                 <RaisedButton
                     label="Add answer"
-                    onClick={props.addNewAnswerActions}
+                    onClick={ () => {
+                        props.addNewAnswer()
+                        props.toggleNotificationAction('answer added')
+                    }}
                     secondary={true}
                     fullWidth={true}
                 />
@@ -66,7 +70,13 @@ const CreateNewQuestionSet = props => (
             : null}
         <RaisedButton
             label="Add new question"
-            onClick={props.addNewQuestionClick}
+            onClick={() => {
+                if (props.questionText !== '') {
+                props.addNewQuestion()
+                } else {
+                    props.toggleNotificationAction('please type a question first')
+                }
+            }}
             primary={true}
             fullWidth={true}
         />
@@ -131,10 +141,11 @@ const mapDispatchToProps = dispatch => ({
     questionTextChange: (event, text) => dispatch(questionTextChange(event, text)),
     questionTypeChange: (event, index, text) => dispatch(questionTypeChange(event, index, text)),
     answerTextChange: (event, text) => dispatch(answerTextChange(event, text)),
-    addNewAnswerActions: () => dispatch(addNewAnswerActions()),
-    addNewQuestionClick: () => dispatch(addNewQuestionClick()),
+    addNewAnswer: () => dispatch(addNewAnswer()),
+    addNewQuestion: () => dispatch(addNewQuestion()),
     deleteQuestion: (timestamp) => dispatch(deleteQuestion(timestamp)),
-    addNewQuestionSetToFirebaseAsyncAction: () => dispatch(addNewQuestionSetToFirebaseAsyncAction())
+    addNewQuestionSetToFirebaseAsyncAction: () => dispatch(addNewQuestionSetToFirebaseAsyncAction()),
+    toggleNotificationAction: (message) => dispatch(toggleNotificationAction(message))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateNewQuestionSet);

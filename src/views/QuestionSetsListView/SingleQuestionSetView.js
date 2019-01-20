@@ -9,6 +9,7 @@ import MenuItem from 'material-ui/MenuItem';
 import { connect } from 'react-redux';
 import Paper from '../../Components/Paper';
 
+import { toggleNotificationAction } from '../../state/notification';
 import {
     deleteQuestionAsyncAction,
     addNewQuestionToFirebaseAsyncAction
@@ -17,7 +18,7 @@ import {
     questionTextChange,
     questionTypeChange,
     answerTextChange,
-    addNewAnswerActions,
+    addNewAnswer,
 
 } from '../../state/createNewQuestionSetView';
 import { RaisedButton } from 'material-ui';
@@ -47,8 +48,8 @@ const SingleQuestionSetView = props => {
                                 {question.type === 'checkbox' ?
                                     question.answers && question.answers.map((answer, index) => (
                                         <RadioButtonGroup
-                                        name={`question-answer-${index}`}
-                                        key={`answer-${index}`}
+                                            name={`question-answer-${index}`}
+                                            key={`answer-${index}`}
                                         >
                                             <RadioButton
                                                 disabled={true}
@@ -68,7 +69,7 @@ const SingleQuestionSetView = props => {
                     ))
                 }
             </List>
-           <h3>Add new question to this question set:</h3>
+            <h3>Add new question to this question set:</h3>
             <div className="new-question-form--hidden">
                 <TextField
                     floatingLabelText="Type your question"
@@ -96,7 +97,10 @@ const SingleQuestionSetView = props => {
                         />
                         <RaisedButton
                             label="Add answer"
-                            onClick={props.addNewAnswerActions}
+                            onClick={() => {
+                                props.addNewAnswer()
+                                props.toggleNotificationAction('answer added')
+                            }}
                             secondary={true}
                             fullWidth={true}
                         />
@@ -104,7 +108,13 @@ const SingleQuestionSetView = props => {
                     : null}
                 <RaisedButton
                     label="Add new question"
-                    onClick={() => props.addNewQuestionToFirebaseAsyncAction(singleQuestionSet.key )}
+                    onClick={() => {
+                        if (props.questionText !== '') {
+                            props.addNewQuestionToFirebaseAsyncAction(singleQuestionSet.key)
+                        } else {
+                            props.toggleNotificationAction('please type a question first')
+                        }
+                    }}
                     primary={true}
                     fullWidth={true}
                 />
@@ -125,8 +135,9 @@ const mapDispatchToProps = dispatch => ({
     questionTextChange: (event, text) => dispatch(questionTextChange(event, text)),
     questionTypeChange: (event, index, text) => dispatch(questionTypeChange(event, index, text)),
     answerTextChange: (event, text) => dispatch(answerTextChange(event, text)),
-    addNewAnswerActions: () => dispatch(addNewAnswerActions()),
+    addNewAnswer: () => dispatch(addNewAnswer()),
     addNewQuestionToFirebaseAsyncAction: (key) => dispatch(addNewQuestionToFirebaseAsyncAction(key)),
+    toggleNotificationAction: (message) => dispatch(toggleNotificationAction(message))
 })
 
 

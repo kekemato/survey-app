@@ -6,6 +6,7 @@ import { List, ListItem } from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
 import { RaisedButton } from 'material-ui';
 import { connect } from 'react-redux';
+import { toggleNotificationAction } from '../../state/notification'
 import {
     addUserToUserGroup,
     removeUserFromLocalUserGroup,
@@ -64,7 +65,13 @@ const SingleUserGroupView = props => {
                 primary={true}
                 fullWidth={true}
                 label="Add new user"
-                onClick={() => props.addNewUserToTheGroupAsyncAction(singleUserGroup.key, singleUserGroup.userGroupName)}
+                onClick={() => {
+                    if (props.usersInGroup.length !== 0) {
+                    props.addNewUserToTheGroupAsyncAction(singleUserGroup.key, singleUserGroup.userGroupName)
+                    } else {
+                        props.toggleNotificationAction('Please check at least one user')
+                    }
+                }}
             />
         </Paper>
     )
@@ -72,14 +79,16 @@ const SingleUserGroupView = props => {
 
 const mapStateToProps = state => ({
     userGroups: state.userGroupsListView.userGroups,
-    users: state.addNewUserView.users
+    users: state.addNewUserView.users,
+    usersInGroup: state.singleUserGroupView.usersInGroup
 })
 
 const mapDispatchToProps = dispatch => ({
     addUserToUserGroup: (user) => dispatch(addUserToUserGroup(user)),
     removeUserFromLocalUserGroup: (user) => dispatch(removeUserFromLocalUserGroup(user)),
     addNewUserToTheGroupAsyncAction: (key, userGroupName) => dispatch(addNewUserToTheGroupAsyncAction(key, userGroupName)),
-    removeUserFromUserGroupAsyncAction: (key, index) => dispatch(removeUserFromUserGroupAsyncAction(key, index))
+    removeUserFromUserGroupAsyncAction: (key, index) => dispatch(removeUserFromUserGroupAsyncAction(key, index)),
+    toggleNotificationAction: (message) => dispatch(toggleNotificationAction(message))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleUserGroupView)

@@ -49,7 +49,6 @@ export const removeUserFromUserListAsyncAction = (key) => (dispatch, getState) =
     } else {
         database.ref(`users/${key}`).remove();
     }
-    dispatch(toggleNotificationAction('User deleted'));
 };
 
 export const userNameChange = (event, text) => ({
