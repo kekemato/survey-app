@@ -1,9 +1,9 @@
 import { database } from '../firebaseConfig'
+import { toggleNotificationAction } from './notification';
 
 const USER_GROUP_NAME_CHANGE = 'createUserGroupView/USER_GROUP_NAME_CHANGE'
 const ADD_USER_TO_USER_GROUP = 'createUserGroupView/ADD_USER_TO_USER_GROUP'
 const REMOVE_USER_FROM_GROUP = 'createUserGroupView/REMOVE_USER_FROM_GROUP'
-const RESTORE_INITIAL_STATE = 'createUserGroupView/RESTORE_INITIAL_STATE'
 
 const INITIAL_STATE = {
     userGroupName: '',
@@ -26,7 +26,7 @@ export const addNewUserGroupAsyncAction = () => (dispatch, getState) => {
         });
     })
 
-    dispatch(restoreInitialState())
+    dispatch(toggleNotificationAction('User group created'));
 }
 
 export const userGroupNameChange = (event, text) => ({
@@ -42,10 +42,6 @@ export const addUserToUserGroup = (user) => ({
 export const removeUserFromGroup = (user) => ({
     type: REMOVE_USER_FROM_GROUP,
     user
-})
-
-const restoreInitialState = () => ({
-    type: RESTORE_INITIAL_STATE
 })
 
 export default (state = INITIAL_STATE, action) => {
@@ -66,12 +62,6 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 usersInGroup: newUserGroup
             }
-        case RESTORE_INITIAL_STATE:
-            return {
-                usersInGroup: [],
-                userGroupName: ''
-            }
-
         default:
             return state
     }

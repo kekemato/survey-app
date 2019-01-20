@@ -17,7 +17,7 @@ import {
     questionTextChange,
     questionTypeChange,
     answerTextChange,
-    addNewAnswerClick,
+    addNewAnswerActions,
     addNewQuestionClick,
     deleteQuestion,
     addNewQuestionSetToFirebaseAsyncAction
@@ -58,7 +58,7 @@ const CreateNewQuestionSet = props => (
                 />
                 <RaisedButton
                     label="Add answer"
-                    onClick={props.addNewAnswerClick}
+                    onClick={props.addNewAnswerActions}
                     secondary={true}
                     fullWidth={true}
                 />
@@ -131,7 +131,7 @@ const mapDispatchToProps = dispatch => ({
     questionTextChange: (event, text) => dispatch(questionTextChange(event, text)),
     questionTypeChange: (event, index, text) => dispatch(questionTypeChange(event, index, text)),
     answerTextChange: (event, text) => dispatch(answerTextChange(event, text)),
-    addNewAnswerClick: () => dispatch(addNewAnswerClick()),
+    addNewAnswerActions: () => dispatch(addNewAnswerActions()),
     addNewQuestionClick: () => dispatch(addNewQuestionClick()),
     deleteQuestion: (timestamp) => dispatch(deleteQuestion(timestamp)),
     addNewQuestionSetToFirebaseAsyncAction: () => dispatch(addNewQuestionSetToFirebaseAsyncAction())

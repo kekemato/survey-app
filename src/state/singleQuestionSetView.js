@@ -1,4 +1,4 @@
-import { database } from '../firebaseConfig'
+import { database } from '../firebaseConfig';
 import { restoreInitialState } from './createNewQuestionSetView';
 
 export const deleteQuestionAsyncAction = (id, index) => (dispatch, getState) => {

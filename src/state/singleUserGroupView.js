@@ -1,4 +1,5 @@
 import { database } from '../firebaseConfig';
+import { toggleNotificationAction } from './notification';
 
 const ADD_USER_TO_USER_GROUP = 'singleUserGroupView/ADD_USER_TO_USER_GROUP';
 const REMOVE_USER_FROM_LOCAL_USER_GROUP = 'singleUserGroupView/REMOVE_USER_FROM_LOCAL_USER_GROUP';
@@ -17,6 +18,7 @@ export const addNewUserToTheGroupAsyncAction = (key, userGroupName) => (dispatch
         });
     })
 
+    dispatch(toggleNotificationAction('User added'));
     dispatch(restoreInitialState());
 };
 

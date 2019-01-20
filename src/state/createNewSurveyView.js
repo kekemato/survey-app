@@ -1,11 +1,11 @@
 import { database } from '../firebaseConfig';
+import { toggleNotificationAction } from './notification';
 
 const SURVEY_NAME_CHANGE = 'createNewSurveyView/SURVEY_NAME_CHANGE';
 const ADD_QUESTION_SET_TO_SURVEY = 'createNewSurveyView/ADD_QUESTION_SET_TO_SURVEY';
 const REMOVE_QUESTION_SET_FROM_SURVEY = 'createNewSurveyView/REMOVE_QUESTION_SET_FROM_SURVEY';
 const ADD_USER_GROUP_TO_SURVEY = 'createNewSurveyView/ADD_USER_GROUP_TO_SURVEY';
 const REMOVE_USER_GROUP_FROM_SURVEY = 'createNewSurveyView/REMOVE_USER_GROUP_FROM_SURVEY';
-const RESTORE_INITIAL_STATE = 'createNewSurveyView/RESTORE_INITIAL_STATE';
 
 const INITIAL_STATE = {
     surveyName: '',
@@ -40,7 +40,7 @@ export const createNewSurveyAsyncAction = () => (dispatch, getState) => {
         });
     });
 
-    dispatch(restoreInitialState());
+    dispatch(toggleNotificationAction('Survey created'));
 };
 
 export const surveyNameChange = (event, text) => ({
@@ -68,10 +68,6 @@ export const removeUserGroupFromSurvey = (key) => ({
     key
 });
 
-export const restoreInitialState = () => ({
-    type: RESTORE_INITIAL_STATE
-})
-
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case SURVEY_NAME_CHANGE:
@@ -98,12 +94,6 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 userGroupsInSurvey: state.userGroupsInSurvey.filter(userGroup => userGroup.key !== action.key)
-            }
-        case RESTORE_INITIAL_STATE:
-            return {
-                surveyName: '',
-                questionSetsInSurvey: [],
-                userGroupsInSurvey: []
             }
         default:
             return state

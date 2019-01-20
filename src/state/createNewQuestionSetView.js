@@ -1,10 +1,11 @@
 import { database } from '../firebaseConfig';
+import { toggleNotificationAction } from './notification';
 
 const QUESTION_SET_NAME_CHANGE = "createNewQuestionSetView/QUESTION_SET_NAME_CHANGE";
 const QUESTION_TEXT_CHANGE = 'createNewQuestionSetView/QUESTION_TEXT_CHANGE';
 const QUESTION_TYPE_CHANGE = 'createNewQuestionSetView/QUESTION_TYPE_CHANGE';
 const ANSWER_TEXT_CHANGE = 'createNewQuestionSetView/ANSWER_TEXT_CHANGE';
-const ADD_NEW_ANSWER_CLICK = 'createNewQuestionSetView/ADD_NEW_ANSWER_CLICK';
+const ADD_NEW_ANSWER = 'createNewQuestionSetView/ADD_NEW_ANSWER';
 const ADD_NEW_QUESTION_CLICK = 'createNewQuestionSetView/ADD_NEW_QUESTION_CLICK';
 const DELETE_QUESTION = 'createNewQuestionSetView/DELETE_QUESTION';
 const RESTORE_INITIAL_STATE = 'createNewQuestionSetView/RESTORE_INITIAL_STATE';
@@ -38,7 +39,13 @@ export const addNewQuestionSetToFirebaseAsyncAction = () => (dispatch, getState)
         });
     })
 
+    dispatch(toggleNotificationAction('Question set created'));
     dispatch(restoreInitialState())
+};
+
+export const addNewAnswerActions = () => (dispatch, getState) => {
+    dispatch(addNewAnswer());
+    dispatch(toggleNotificationAction('Answer added'));
 };
 
 export const questionSetNameChange = (event, text) => ({
@@ -61,10 +68,6 @@ export const answerTextChange = (event, text) => ({
     text
 });
 
-export const addNewAnswerClick = () => ({
-    type: ADD_NEW_ANSWER_CLICK
-});
-
 export const addNewQuestionClick = () => ({
     type: ADD_NEW_QUESTION_CLICK
 });
@@ -76,6 +79,10 @@ export const deleteQuestion = timestamp => ({
 
 export const restoreInitialState = () => ({
     type: RESTORE_INITIAL_STATE,
+});
+
+const addNewAnswer = () => ({
+    type: ADD_NEW_ANSWER
 });
 
 export default (state = INITIAL_STATE, action) => {
@@ -100,14 +107,14 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 answerText: action.text
             }
-        case ADD_NEW_ANSWER_CLICK:
+        case ADD_NEW_ANSWER:
             return {
                 ...state,
                 answers: [...state.answers, state.answerText],
                 answerText: ''
             }
         case ADD_NEW_QUESTION_CLICK:
-        const timestamp = Date.now()
+            const timestamp = Date.now()
             return {
                 ...state,
                 questions: [...state.questions, { text: state.questionText, type: state.questionType, answers: state.answers, timestamp }],

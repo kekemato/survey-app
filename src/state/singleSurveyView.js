@@ -1,5 +1,5 @@
-import { database } from '../firebaseConfig'
-
+import { database } from '../firebaseConfig';
+import { toggleNotificationAction } from './notification';
 
 const ADD_QUESTION_SET_TO_SURVEY = 'singleSurveyView/ADD_QUESTION_SET_TO_SURVEY';
 const REMOVE_QUESTION_SET_FROM_SURVEY = 'singleSurveyView/REMOVE_QUESTION_SET_FROM_SURVEY';
@@ -30,6 +30,7 @@ export const addNewQuestionSetToTheSurveyAsyncAction = (key) => (dispatch, getSt
         );
     });
 
+    dispatch(toggleNotificationAction('Question set added'));
     dispatch(restoreInitialStateOfQuestionSets());
 };
 
@@ -42,6 +43,7 @@ export const addNewUserGroupToTheSurveyAsyncAction = (key) => (dispatch, getStat
         );
     });
 
+    dispatch(toggleNotificationAction('User group added'));
     dispatch(restoreInitialStateOfUserGroups());
 }
 

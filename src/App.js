@@ -78,20 +78,20 @@ class App extends React.Component {
                   </MenuItem>
                 </Link>
                 <Link
-                  to='/add-new-user'
-                  className='link'
-                >
-                  <MenuItem
-                    primaryText='Add new user'
-                  >
-                  </MenuItem>
-                </Link>
-                <Link
                   to='/create-user-group'
                   className='link'
                 >
                   <MenuItem
                     primaryText='Create user group'
+                  >
+                  </MenuItem>
+                </Link>
+                <Link
+                  to='/add-new-user'
+                  className='link'
+                >
+                  <MenuItem
+                    primaryText='Add new user'
                   >
                   </MenuItem>
                 </Link>
