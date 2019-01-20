@@ -9,15 +9,17 @@ import QuestionSetsListView from './views/QuestionSetsListView/QuestionSetsListV
 import SingleQuestionSetView from './views/QuestionSetsListView/SingleQuestionSetView';
 import AddNewUserView from './views/AddNewUserView';
 import CreateUserGroupView from './views/CreateUserGroupView';
-import UserGroupsListView from './views/UserGroupsListView';
-import SingleUserGroupView from './views/SingleUserGroupView';
+import UserGroupsListView from './views/UserGroupsListView/UserGroupsListView';
+import SingleUserGroupView from './views/UserGroupsListView/SingleUserGroupView';
+import CreateNewSurveyView from './views/CreateNewSurveyView'
+import SurveysListView from './views/SurveysListView/SurveysListView';
 import { startListeningToFirebase } from './state/firebase';
 import './css/App.css';
 
 class App extends React.Component {
   componentDidMount() {
     this.props.startListeningToFirebase()
-  }
+  };
 
   render() {
     return (
@@ -32,7 +34,7 @@ class App extends React.Component {
                 className='link'
               >
                 <MenuItem
-                  primaryText='Survey list'
+                  primaryText='Surveys list'
                 >
                 </MenuItem>
               </Link>
@@ -93,12 +95,13 @@ class App extends React.Component {
             </Navigation>
           </div>
           <div>
+            <Route path="/" exact={true} component={SurveysListView} />
             <Route path="/create-new-question-set" component={CreateNewQuestionSetView} />
+            <Route path="/create-new-survey" component={CreateNewSurveyView} />
             <Route path="/question-sets-list" component={QuestionSetsListView} />
             <Route path="/user-groups-list" component={UserGroupsListView} />
             <Route path="/single-question-set/:id" component={SingleQuestionSetView} />
             <Route path="/single-user-group/:id" component={SingleUserGroupView} />
-            {/* <Route path="/" exact={true} component={SurveyListView} /> */}
           <Route path="/add-new-user" component={AddNewUserView} />
           <Route path="/create-user-group" component={CreateUserGroupView} />
           </div>
@@ -106,10 +109,10 @@ class App extends React.Component {
       </Router>
     );
   }
-}
+};
 
 const mapDispatchToProps = dispatch => ({
   startListeningToFirebase: () => dispatch(startListeningToFirebase())
-})
+});
 
 export default connect(null, mapDispatchToProps)(App);

@@ -11,7 +11,7 @@ import {
     removeUserFromLocalUserGroup,
     addNewUserToTheGroupAsyncAction,
     removeUserFromUserGroupAsyncAction
-} from '../state/singleUserGroupView'
+} from '../../state/singleUserGroupView'
 
 const SingleUserGroupView = props => {
     const singleUserGroup = props.userGroups && props.userGroups.find(element => element.key === props.match.params.id)

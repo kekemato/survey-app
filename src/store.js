@@ -5,7 +5,9 @@ import questionSetsListView from './state/questionSetsListView';
 import addNewUserView from './state/addNewUserView';
 import createUserGroupView from './state/createUserGroupView';
 import userGroupsListView from './state/userGroupsListView';
-import singleUserGroupView from './state/singleUserGroupView'
+import singleUserGroupView from './state/singleUserGroupView';
+import createNewSurveyView from './state/createNewSurveyView';
+import surveysListView from './state/surveysListView';
 
 const reducer = combineReducers({
     createNewQuestionSetView,
@@ -13,7 +15,9 @@ const reducer = combineReducers({
     addNewUserView,
     createUserGroupView,
     userGroupsListView,
-    singleUserGroupView
+    singleUserGroupView,
+    createNewSurveyView,
+    surveysListView
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

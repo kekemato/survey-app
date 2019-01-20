@@ -4,7 +4,7 @@ import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import IconButton from 'material-ui/IconButton';
 import { List, ListItem } from 'material-ui/List';
 import { connect } from 'react-redux';
-import { deleteUserGroupAsyncAction } from '../state/userGroupsListView';
+import { deleteUserGroupAsyncAction } from '../../state/userGroupsListView';
 
 const UserGroupsListView = props => (
     <Paper>
@@ -32,7 +32,7 @@ const UserGroupsListView = props => (
 )
 
 const mapStateToProps = state => ({
-    userGroups: state.userGroupsListView.userGroups,
+    userGroups: state.userGroupsListView.userGroups
 });
 
 const mapDispatchToProps = dispatch => ({

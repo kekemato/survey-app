@@ -9,7 +9,7 @@ import {
     addUserToUserGroup,
     removeUserFromGroup,
     addNewUserGroupAsyncAction
-} from '../state/createUserGroupView'
+} from '../state/createUserGroupView';
 
 const CreateUserGroupView = props => (
     <Paper>
@@ -48,18 +48,18 @@ const CreateUserGroupView = props => (
             }
         </List>
     </Paper>
-)
+);
 
 const mapStateToProps = state => ({
     userGroupName: state.createUserGroupView.userGroupName,
     users: state.addNewUserView.users
-})
+});
 
 const mapDispatchToProps = dispatch => ({
     userGroupNameChange: (event, text) => dispatch(userGroupNameChange(event, text)),
     addUserToUserGroup: (user) => dispatch(addUserToUserGroup(user)),
     removeUserFromGroup: (user) => dispatch(removeUserFromGroup(user)),
     addNewUserGroupAsyncAction: () => dispatch(addNewUserGroupAsyncAction())
-})
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateUserGroupView)
+export default connect(mapStateToProps, mapDispatchToProps)(CreateUserGroupView);
