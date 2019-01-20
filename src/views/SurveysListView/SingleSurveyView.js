@@ -1,5 +1,5 @@
 import React from 'react';
-import Paper from 'material-ui/Paper';
+import Paper from '../../Components/Paper';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import IconButton from 'material-ui/IconButton';
 import { List, ListItem } from 'material-ui/List';

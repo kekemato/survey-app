@@ -1,5 +1,5 @@
 import React from 'react';
-import Paper from 'material-ui/Paper';
+import Paper from '../Components/Paper';
 import { List, ListItem } from 'material-ui/List';
 import { TextField, RaisedButton } from 'material-ui';
 import Checkbox from 'material-ui/Checkbox';
@@ -19,11 +19,7 @@ const CreateNewSurveyView = props => (
             floatingLabelText="Name your survey"
             value={props.surveyName}
             onChange={props.surveyNameChange}
-        />
-        <RaisedButton
-            primary={true}
-            label="Create new survey"
-            onClick={props.createNewSurveyAsyncAction}
+            fullWidth={true}
         />
         <h2>Available question sets:</h2>
         <List>
@@ -71,6 +67,12 @@ const CreateNewSurveyView = props => (
                 ))
             }
         </List>
+        <RaisedButton
+            primary={true}
+            label="Create new survey"
+            onClick={props.createNewSurveyAsyncAction}
+            fullWidth={true}
+        />
     </Paper>
 );
 

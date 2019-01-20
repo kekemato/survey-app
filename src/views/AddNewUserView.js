@@ -1,5 +1,5 @@
 import React from 'react';
-import Paper from 'material-ui/Paper';
+import Paper from '../Components/Paper';
 import { connect } from 'react-redux';
 import { List, ListItem } from 'material-ui/List';
 import { TextField, RaisedButton } from 'material-ui';
@@ -17,11 +17,16 @@ const AddNewUserView = props => (
             floatingLabelText="Type user name"
             onChange={props.userNameChange}
             value={props.userName}
+            fullWidth={true}
         />
         <RaisedButton
             label="Add new user"
             onClick={props.addNewUserAsyncAction}
             primary={true}
+            fullWidth={true}
+            style={{
+                marginTop: 10
+            }}
         />
         <h2>Users list:</h2>
         <List>

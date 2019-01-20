@@ -5,7 +5,7 @@ import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import { List, ListItem } from 'material-ui/List';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import Paper from 'material-ui/Paper';
+import Paper from '../Components/Paper';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import IconButton from 'material-ui/IconButton';
 import { connect } from 'react-redux';

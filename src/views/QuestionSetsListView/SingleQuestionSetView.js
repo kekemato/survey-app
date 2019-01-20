@@ -1,5 +1,4 @@
 import React from 'react';
-import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import { List, ListItem } from 'material-ui/List';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
@@ -8,6 +7,7 @@ import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import { connect } from 'react-redux';
+import Paper from '../../Components/Paper';
 
 import {
     deleteQuestionAsyncAction,

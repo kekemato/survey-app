@@ -1,5 +1,5 @@
 import React from 'react';
-import Paper from 'material-ui/Paper';
+import Paper from '../Components/Paper';
 import { connect } from 'react-redux';
 import { List, ListItem } from 'material-ui/List';
 import { TextField, RaisedButton } from 'material-ui';
@@ -18,11 +18,6 @@ const CreateUserGroupView = props => (
             onChange={props.userGroupNameChange}
             value={props.userGroupName}
             fullWidth={true}
-        />
-        <RaisedButton
-            label="Create new user group"
-            onClick={props.addNewUserGroupAsyncAction}
-            primary={true}
         />
         <h2>Available users list:</h2>
         <List>
@@ -47,6 +42,12 @@ const CreateUserGroupView = props => (
                 ))
             }
         </List>
+        <RaisedButton
+            label="Create new user group"
+            onClick={props.addNewUserGroupAsyncAction}
+            primary={true}
+            fullWidth={true}
+        />
     </Paper>
 );
 
