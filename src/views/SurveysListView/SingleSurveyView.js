@@ -66,7 +66,7 @@ const SingleSurveyView = props => {
             <List>
                 {props.questionSets &&
                     props.questionSets.map &&
-                    props.questionSets.map((questionSet, index) => (
+                    props.questionSets.map(questionSet => (
                         <ListItem
                             key={questionSet.key}
                             leftCheckbox={
@@ -77,10 +77,9 @@ const SingleSurveyView = props => {
                                         } else {
                                             props.removeQuestionSetFromLocalSurvey(questionSet)
                                         }
-                                    }
-                                    }
-                                    ref={'ref_' + index}
-                                />}
+                                    }}
+                                />
+                            }
                             primaryText={questionSet.questionSetName}
                         />
                     ))
@@ -106,9 +105,9 @@ const SingleSurveyView = props => {
                                         } else {
                                             props.removeUserGroupFromLocalSurvey(userGroup)
                                         }
-                                    }
-                                    }
-                                />}
+                                    }}
+                                />
+                            }
                             primaryText={userGroup.userGroupName}
                         />
                     ))

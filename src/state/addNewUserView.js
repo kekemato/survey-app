@@ -1,4 +1,5 @@
 import { database } from '../firebaseConfig'
+import { toggleNotificationAction } from './notification'
 
 const USER_NAME_CHANGE = 'addNewUserView/USER_NAME_CHANGE'
 const RESTORE_INITIAL_STATE = 'addNewUserView/RESTORE_INITIAL_STATE'
@@ -30,7 +31,12 @@ export const getUsersListFromFirebaseAsyncAction = () => (dispatch, getState) =>
 
 export const addNewUserAsyncAction = () => (dispatch, getState) => {
     const user = getState().addNewUserView.userName
+    if (user !== '') {
     database.ref('users').push(user)
+    dispatch(toggleNotificationAction('User added'))
+    } else {
+        dispatch(toggleNotificationAction('Please type user name'))
+    }
 
     dispatch(restoreInitialUserNameState())
 }

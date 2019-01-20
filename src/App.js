@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import MenuItem from 'material-ui/MenuItem';
 import { connect } from 'react-redux'
 
-import Navigation from './Navigation/Navigation';
+import Navigation from './Components/Navigation';
 import CreateNewQuestionSetView from './views/CreateNewQuestionSetView';
 import QuestionSetsListView from './views/QuestionSetsListView/QuestionSetsListView';
 import SingleQuestionSetView from './views/QuestionSetsListView/SingleQuestionSetView';
@@ -14,6 +14,7 @@ import SingleUserGroupView from './views/UserGroupsListView/SingleUserGroupView'
 import CreateNewSurveyView from './views/CreateNewSurveyView'
 import SurveysListView from './views/SurveysListView/SurveysListView';
 import SingleSurveyView from './views/SurveysListView/SingleSurveyView';
+import Notification from './Components/Notification'
 import { startListeningToFirebase } from './state/firebase';
 import './css/App.css';
 
@@ -24,91 +25,94 @@ class App extends React.Component {
 
   render() {
     return (
-      <Router>
-        <div>
+      <div>
+        <Router>
           <div>
-            <Navigation
-              title="surveyMe"
-              keyChildProp="to">
-              <Link
-                to='/'
-                className='link'
-              >
-                <MenuItem
-                  primaryText='Surveys list'
+            <div>
+              <Navigation
+                title="surveyMe"
+                keyChildProp="to">
+                <Link
+                  to='/'
+                  className='link'
                 >
-                </MenuItem>
-              </Link>
-              <Link
-                to='/question-sets-list'
-                className='link'
-              >
-                <MenuItem
-                  primaryText='Question sets list'
+                  <MenuItem
+                    primaryText='Surveys list'
+                  >
+                  </MenuItem>
+                </Link>
+                <Link
+                  to='/question-sets-list'
+                  className='link'
                 >
-                </MenuItem>
-              </Link>
-              <Link
-                to='/user-groups-list'
-                className='link'
-              >
-                <MenuItem
-                  primaryText='User Groups list'
+                  <MenuItem
+                    primaryText='Question sets list'
+                  >
+                  </MenuItem>
+                </Link>
+                <Link
+                  to='/user-groups-list'
+                  className='link'
                 >
-                </MenuItem>
-              </Link>
-              <Link
-                to='/create-new-survey'
-                className='link'
-              >
-                <MenuItem
-                  primaryText='Create new survey'
+                  <MenuItem
+                    primaryText='User Groups list'
+                  >
+                  </MenuItem>
+                </Link>
+                <Link
+                  to='/create-new-survey'
+                  className='link'
                 >
-                </MenuItem>
-              </Link>
-              <Link
-                to='/create-new-question-set'
-                className='link'
-              >
-                <MenuItem
-                  primaryText='Create new question set'
+                  <MenuItem
+                    primaryText='Create new survey'
+                  >
+                  </MenuItem>
+                </Link>
+                <Link
+                  to='/create-new-question-set'
+                  className='link'
                 >
-                </MenuItem>
-              </Link>
-              <Link
-                to='/add-new-user'
-                className='link'
-              >
-                <MenuItem
-                  primaryText='Add new user'
+                  <MenuItem
+                    primaryText='Create new question set'
+                  >
+                  </MenuItem>
+                </Link>
+                <Link
+                  to='/add-new-user'
+                  className='link'
                 >
-                </MenuItem>
-              </Link>
-              <Link
-                to='/create-user-group'
-                className='link'
-              >
-                <MenuItem
-                  primaryText='Create user group'
+                  <MenuItem
+                    primaryText='Add new user'
+                  >
+                  </MenuItem>
+                </Link>
+                <Link
+                  to='/create-user-group'
+                  className='link'
                 >
-                </MenuItem>
-              </Link>
-            </Navigation>
+                  <MenuItem
+                    primaryText='Create user group'
+                  >
+                  </MenuItem>
+                </Link>
+              </Navigation>
+            </div>
+            <div>
+              <Route path="/" exact={true} component={SurveysListView} />
+              <Route path="/create-new-question-set" component={CreateNewQuestionSetView} />
+              <Route path="/create-new-survey" component={CreateNewSurveyView} />
+              <Route path="/question-sets-list" component={QuestionSetsListView} />
+              <Route path="/user-groups-list" component={UserGroupsListView} />
+              <Route path="/single-survey/:id" component={SingleSurveyView} />
+              <Route path="/single-question-set/:id" component={SingleQuestionSetView} />
+              <Route path="/single-user-group/:id" component={SingleUserGroupView} />
+              <Route path="/add-new-user" component={AddNewUserView} />
+              <Route path="/create-user-group" component={CreateUserGroupView} />
+            </div>
           </div>
-          <div>
-            <Route path="/" exact={true} component={SurveysListView} />
-            <Route path="/create-new-question-set" component={CreateNewQuestionSetView} />
-            <Route path="/create-new-survey" component={CreateNewSurveyView} />
-            <Route path="/question-sets-list" component={QuestionSetsListView} />
-            <Route path="/user-groups-list" component={UserGroupsListView} />
-            <Route path="/single-survey/:id" component={SingleSurveyView} />
-            <Route path="/single-question-set/:id" component={SingleQuestionSetView} />
-            <Route path="/single-user-group/:id" component={SingleUserGroupView} />
-            <Route path="/add-new-user" component={AddNewUserView} />
-            <Route path="/create-user-group" component={CreateUserGroupView} />
-          </div>
-        </div>
-      </Router>
+        </Router>
+        <Notification />
+      </div>
     );
   }
 };
