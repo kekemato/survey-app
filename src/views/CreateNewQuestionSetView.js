@@ -24,7 +24,7 @@ import {
 } from '../state/createNewQuestionSetView';
 
 const CreateNewQuestionSet = props => (
-    <Paper class="question-set-container">
+    <Paper className="question-set-container">
         <h2>Create new question set</h2>
         <TextField
             floatingLabelText="Name your question set"
@@ -49,7 +49,7 @@ const CreateNewQuestionSet = props => (
         </SelectField>
         <br />
         {props.questionType === 'checkbox' ?
-            <div class="checkbox-question-form-container">
+            <div className="checkbox-question-form-container">
                 <TextField
                     floatingLabelText="Type your answer to question"
                     fullWidth={true}

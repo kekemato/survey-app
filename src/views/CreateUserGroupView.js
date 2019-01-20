@@ -20,7 +20,7 @@ const CreateUserGroupView = props => (
             fullWidth={true}
         />
         <RaisedButton
-            label="Add new user group"
+            label="Create new user group"
             onClick={props.addNewUserGroupAsyncAction}
             primary={true}
         />

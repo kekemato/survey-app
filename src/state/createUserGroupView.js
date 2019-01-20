@@ -13,9 +13,17 @@ const INITIAL_STATE = {
 export const addNewUserGroupAsyncAction = () => (dispatch, getState) => {
     const userGroupName = getState().createUserGroupView.userGroupName
     const users = getState().createUserGroupView.usersInGroup
-    database.ref('userGroups').push({
-        userGroupName,
-        users
+    const newPostRef = database.ref('userGroups').push({
+        userGroupName
+    });
+
+    const postId = newPostRef.key;
+
+    users.forEach( user => {
+        database.ref(`userGroups/${postId}/users`).push({
+            uuid: user.key,
+            userName: user.userName
+        });
     })
 
     dispatch(restoreInitialState())

@@ -21,6 +21,7 @@ const AddNewUserView = props => (
         <RaisedButton
             label="Add new user"
             onClick={props.addNewUserAsyncAction}
+            primary={true}
         />
         <h2>Users list:</h2>
         <List>

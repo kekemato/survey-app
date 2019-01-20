@@ -3,9 +3,9 @@ import Paper from 'material-ui/Paper';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import IconButton from 'material-ui/IconButton';
 import { List, ListItem } from 'material-ui/List';
-import { connect } from 'react-redux';
 import Checkbox from 'material-ui/Checkbox';
 import { RaisedButton } from 'material-ui';
+import { connect } from 'react-redux';
 import {
     addUserToUserGroup,
     removeUserFromLocalUserGroup,
@@ -20,15 +20,15 @@ const SingleUserGroupView = props => {
             <h2>{singleUserGroup && singleUserGroup.userGroupName}</h2>
             <List>
                 {singleUserGroup &&
-                singleUserGroup.users &&
-                    singleUserGroup.users.map &&
-                    singleUserGroup.users.map((user, index) => (
+                    singleUserGroup.users &&
+                    Object.values(singleUserGroup.users).map &&
+                    Object.values(singleUserGroup.users).map((user, index) => (
                         <ListItem
                             key={user.key}
                             primaryText={user.userName}
                             rightIconButton={
                                 <IconButton
-                                    onClick={() => props.removeUserFromUserGroupAsyncAction(singleUserGroup.key, index)}
+                                    onClick={() => props.removeUserFromUserGroupAsyncAction(singleUserGroup.key, Object.keys(singleUserGroup.users)[index])}
                                 >
                                     <DeleteIcon />
                                 </IconButton>
@@ -61,6 +61,7 @@ const SingleUserGroupView = props => {
                 }
             </List>
             <RaisedButton
+                primary={true}
                 label="Add new user"
                 onClick={() => props.addNewUserToTheGroupAsyncAction(singleUserGroup.key, singleUserGroup.userGroupName)}
             />
@@ -77,7 +78,7 @@ const mapDispatchToProps = dispatch => ({
     addUserToUserGroup: (user) => dispatch(addUserToUserGroup(user)),
     removeUserFromLocalUserGroup: (user) => dispatch(removeUserFromLocalUserGroup(user)),
     addNewUserToTheGroupAsyncAction: (key, userGroupName) => dispatch(addNewUserToTheGroupAsyncAction(key, userGroupName)),
-    removeUserFromUserGroupAsyncAction: (key, index) => dispatch(removeUserFromUserGroupAsyncAction(key, index)),
+    removeUserFromUserGroupAsyncAction: (key, index) => dispatch(removeUserFromUserGroupAsyncAction(key, index))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleUserGroupView)

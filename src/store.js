@@ -8,6 +8,7 @@ import userGroupsListView from './state/userGroupsListView';
 import singleUserGroupView from './state/singleUserGroupView';
 import createNewSurveyView from './state/createNewSurveyView';
 import surveysListView from './state/surveysListView';
+import singleSurveyView from './state/singleSurveyView';
 
 const reducer = combineReducers({
     createNewQuestionSetView,
@@ -17,7 +18,8 @@ const reducer = combineReducers({
     userGroupsListView,
     singleUserGroupView,
     createNewSurveyView,
-    surveysListView
+    surveysListView,
+    singleSurveyView
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

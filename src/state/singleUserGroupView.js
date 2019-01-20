@@ -2,21 +2,20 @@ import { database } from '../firebaseConfig';
 
 const ADD_USER_TO_USER_GROUP = 'singleUserGroupView/ADD_USER_TO_USER_GROUP';
 const REMOVE_USER_FROM_LOCAL_USER_GROUP = 'singleUserGroupView/REMOVE_USER_FROM_LOCAL_USER_GROUP';
-const RESTORE_INITIAL_STATE = 'createUserGroupView/RESTORE_INITIAL_STATE';
+const RESTORE_INITIAL_STATE = 'singleUserGroupView/RESTORE_INITIAL_STATE';
 
 const INITIAL_STATE = {
     usersInGroup: []
 };
 
 export const addNewUserToTheGroupAsyncAction = (key, userGroupName) => (dispatch, getState) => {
-    const userGroups = getState().userGroupsListView.userGroups;
-    const singleUserGroup = userGroups && userGroups.find(element => element.key === key);
-    const newUsers = getState().singleUserGroupView.usersInGroup;
-    const users = (singleUserGroup.users ? singleUserGroup.users.concat(newUsers) : newUsers);
-    database.ref(`userGroups/${key}`).set({
-        userGroupName,
-        users
-    });
+    const usersInGroup = getState().singleUserGroupView.usersInGroup;
+    usersInGroup.forEach( user => {
+        database.ref(`userGroups/${key}/users`).push({
+            uuid: user.key,
+            userName: user.userName
+        });
+    })
 
     dispatch(restoreInitialState());
 };

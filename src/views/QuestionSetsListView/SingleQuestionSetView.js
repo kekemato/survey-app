@@ -30,13 +30,13 @@ const SingleQuestionSetView = props => {
             <List>
                 {singleQuestionSet &&
                     singleQuestionSet.questions &&
-                    singleQuestionSet.questions.map &&
-                    singleQuestionSet.questions.map((question, index) => (
+                    Object.values(singleQuestionSet.questions).map &&
+                    Object.values(singleQuestionSet.questions).map((question, index) => (
                         <div key={question.timestamp}>
                             <ListItem
                                 rightIconButton={
                                     <IconButton
-                                        onClick={() => props.deleteQuestionAsyncAction(props.match.params.id, index)
+                                        onClick={() => props.deleteQuestionAsyncAction(props.match.params.id, Object.keys(singleQuestionSet.questions)[index])
                                         }
                                     >
                                         <DeleteIcon />
@@ -87,7 +87,7 @@ const SingleQuestionSetView = props => {
                 </SelectField>
                 <br />
                 {props.questionType === 'checkbox' ?
-                    <div class="checkbox-question-form-container">
+                    <div className="checkbox-question-form-container">
                         <TextField
                             floatingLabelText="Type your answer to question"
                             fullWidth={true}

@@ -21,12 +21,24 @@ const INITIAL_STATE = {
 export const addNewQuestionSetToFirebaseAsyncAction = () => (dispatch, getState) => {
     const questionSetName = getState().createNewQuestionSetView.questionSetName;
     const questions = getState().createNewQuestionSetView.questions;
-    database.ref('/questionSets').push({
-        questionSetName,
-        questions,
+
+    const newPostRef = database.ref('/questionSets').push({
+        questionSetName
     });
 
-    dispatch(restoreInitialStateAction())
+    const postId = newPostRef.key;
+
+    questions.forEach(question => {
+        const answers = question.answers ? question.answers : null
+        database.ref(`questionSets/${postId}/questions`).push({
+            answers: answers,
+            text: question.text,
+            timestamp: question.timestamp,
+            type: question.type
+        });
+    })
+
+    dispatch(restoreInitialState())
 };
 
 export const questionSetNameChange = (event, text) => ({
@@ -62,7 +74,7 @@ export const deleteQuestion = timestamp => ({
     timestamp
 })
 
-export const restoreInitialStateAction = () => ({
+export const restoreInitialState = () => ({
     type: RESTORE_INITIAL_STATE,
 });
 

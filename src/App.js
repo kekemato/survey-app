@@ -13,6 +13,7 @@ import UserGroupsListView from './views/UserGroupsListView/UserGroupsListView';
 import SingleUserGroupView from './views/UserGroupsListView/SingleUserGroupView';
 import CreateNewSurveyView from './views/CreateNewSurveyView'
 import SurveysListView from './views/SurveysListView/SurveysListView';
+import SingleSurveyView from './views/SurveysListView/SingleSurveyView';
 import { startListeningToFirebase } from './state/firebase';
 import './css/App.css';
 
@@ -100,10 +101,11 @@ class App extends React.Component {
             <Route path="/create-new-survey" component={CreateNewSurveyView} />
             <Route path="/question-sets-list" component={QuestionSetsListView} />
             <Route path="/user-groups-list" component={UserGroupsListView} />
+            <Route path="/single-survey/:id" component={SingleSurveyView} />
             <Route path="/single-question-set/:id" component={SingleQuestionSetView} />
             <Route path="/single-user-group/:id" component={SingleUserGroupView} />
-          <Route path="/add-new-user" component={AddNewUserView} />
-          <Route path="/create-user-group" component={CreateUserGroupView} />
+            <Route path="/add-new-user" component={AddNewUserView} />
+            <Route path="/create-user-group" component={CreateUserGroupView} />
           </div>
         </div>
       </Router>

@@ -14,14 +14,32 @@ const INITIAL_STATE = {
 };
 
 export const createNewSurveyAsyncAction = () => (dispatch, getState) => {
-    const surveyName = getState().createNewSurveyView.surveyName
-    const questionSets = getState().createNewSurveyView.questionSetsInSurvey
-    const userGroups = getState().createNewSurveyView.userGroupsInSurvey
-    database.ref('surveys').push({
-        surveyName,
-        questionSets,
-        userGroups
+    const surveyName = getState().createNewSurveyView.surveyName;
+    const questionSets = getState().createNewSurveyView.questionSetsInSurvey;
+    const userGroups = getState().createNewSurveyView.userGroupsInSurvey;
+
+    const newSurveyRef =database.ref('surveys').push({
+        surveyName
     });
+
+    const surveyId = newSurveyRef.key;
+
+    questionSets.forEach(questionSet => {
+        database.ref(`surveys/${surveyId}/questionSets`).push({
+            key: questionSet.key,
+            questionSetName: questionSet.questionSetName,
+            questions: questionSet.questions
+        });
+    });
+
+    userGroups.forEach(userGroup => {
+        database.ref(`surveys/${surveyId}/userGroups`).push({
+            key: userGroup.key,
+            userGroupName: userGroup.userGroupName,
+            users: userGroup.users
+        });
+    });
+
     dispatch(restoreInitialState());
 };
 
@@ -50,7 +68,7 @@ export const removeUserGroupFromSurvey = (key) => ({
     key
 });
 
-const restoreInitialState = () => ({
+export const restoreInitialState = () => ({
     type: RESTORE_INITIAL_STATE
 })
 
